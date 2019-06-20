@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="reminder_type">
+        <item>Home</item>
+        <item>Office</item>
+        <item>Other</item>
+    </string-array>
+
+
+    <string-array name="notification_type">
+        <item>No notify</item>
+        <item>On the Same day</item>
+        <item>1 day(s)before due date</item>
+        <item>2 day(s)before due date</item>
+        <item>3 day(s)before due date</item>
+        <item>4 day(s)before due date</item>
+        <item>5 day(s)before due date</item>
+        <item>6 day(s)before due date</item>
+        <item>7 day(s)before due date</item>
+        <item>8 day(s)before due date</item>
+        <item>9 day(s)before due date</item>
+        <item>10 day(s)before due date</item>
+    </string-array>
+
+    <string-array name="repeat_type">
+        <item>Forever</item>
+        <item>End Date</item>
+    </string-array>
+
+    <string-array name="insurance_list">
+        <item>Life Insurance</item>
+        <item>Health Insurance</item>
+        <item>Bike Insurance</item>
+        <item>Car Insurance</item>
+        <item>Term Insurance</item>
+    </string-array>
+
+    <string-array name="category_list_name">
+        <item>Electricity</item>
+        <item>Insurance</item>
+        <item>Landline</item>
+        <item>Gas</item>
+        <item>Water</item>
+        <item>Custom</item>
+    </string-array>
+
+    <integer-array name="category_list_icon">
+        <item>@drawable/category_electricity</item>
+        <item>@drawable/category_insurance</item>
+        <item>@drawable/category_landline</item>
+        <item>@drawable/category_gas</item>
+        <item>@drawable/category_water</item>
+        <item>@drawable/category_custom</item>
+    </integer-array>
+
+    <string-array name="payment_option_name">
+        <item>Credit Card</item>
+        <item>Debit Card</item>
+        <item>Net Banking</item>
+        <item>Case</item>
+        <item>Cheque</item>
+    </string-array>
+
+    <integer-array name="payment_option_icon">
+        <item>@drawable/payment_option_credit_card</item>
+        <item>@drawable/payment_option_debit_card</item>
+        <item>@drawable/payment_option_net_banking</item>
+        <item>@drawable/payment_option_cash</item>
+        <item>@drawable/payment_option_check</item>
+    </integer-array>
+
+</resources>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+
+    <LinearLayout style="@style/dialog_main_linear_layout_style">
+
+        <TextView
+            style="@style/heading_textview_style"
+            android:text="Fill Information" />
+
+        <RelativeLayout style="@style/dialog_relative_layout_style">
+
+            <ImageView
+                android:id="@+id/iv_user_name"
+                style="@style/hint_image_style"
+                app:srcCompat="@drawable/ic_person_outline_black_24dp" />
+
+            <EditText
+                android:id="@+id/et_name"
+                style="@style/edit_text_style"
+                android:layout_toRightOf="@id/iv_user_name"
+                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ अआइईउऊऋएऐओऔकखगघङचछजझञाटठडढणतथदधनपफबभमयरलवशषसहक्षत्रज्ञ ा ि ी ु ू ृ े ै ो ौ ं ः "
+                android:hint="@string/cash_name"
+                android:imeOptions="actionNext"
+                android:maxLength="20" />
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/dialog_relative_layout_style">
+
+            <EditText
+                android:id="@+id/agent_name"
+                style="@style/edit_text_style"
+                android:layout_toRightOf="@id/agent_name_logo"
+                android:hint="@string/agent_name"
+                android:inputType="textPersonName" />
+
+            <ImageView
+                android:id="@+id/agent_name_logo"
+                style="@style/hint_image_style"
+                app:srcCompat="@drawable/ic_person_outline_black_24dp" />
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/dialog_relative_layout_style">
+
+            <ImageView
+                android:id="@+id/iv_mobile_no"
+                style="@style/hint_image_style"
+                app:srcCompat="@drawable/ic_call_black_24dp" />
+
+            <EditText
+                android:id="@+id/mobile_number"
+                style="@style/edit_text_style"
+                android:layout_toRightOf="@id/iv_mobile_no"
+                android:hint="@string/mobile_no"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="10" />
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/dialog_relative_layout_style">
+
+            <ImageView
+                android:id="@+id/iv_email_id"
+                style="@style/hint_image_style"
+                app:srcCompat="@drawable/ic_mail_outline_black_24dp" />
+
+            <EditText
+                android:id="@+id/email_id"
+                style="@style/edit_text_style"
+                android:layout_toRightOf="@id/iv_email_id"
+                android:hint="@string/email_id"
+                android:imeOptions="actionDone"
+                android:inputType="textPersonName" />
+        </RelativeLayout>
+
+
+        <RelativeLayout style="@style/dialog_relative_layout_style">
+
+            <EditText
+                android:id="@+id/alias_name"
+                style="@style/edit_text_style"
+                android:layout_toRightOf="@id/alias_name_logo"
+                android:hint="@string/alias_name"
+                android:imeOptions="actionDone"
+                android:inputType="textPersonName" />
+
+            <ImageView
+                android:id="@+id/alias_name_logo"
+                style="@style/hint_image_style"
+                app:srcCompat="@drawable/ic_edit_black_24dp" />
+        </RelativeLayout>
+
+        <View style="@style/view_style" />
+
+        <LinearLayout
+            style="@style/btn_linear_style"
+            android:layout_marginTop="18dp">
+
+            <Button
+                style="@style/btn_style"
+                android:text="@string/cancel" />
+
+            <View style="@style/horizontal_view_style" />
+
+            <Button
+                style="@style/btn_style"
+                android:text="@string/button_add_cash" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        style="@style/dialog_main_linear_layout_style">
+
+        <TextView
+            style="@style/heading_textview_style"
+            android:text="Fill your Account Information" />
+
+        <RelativeLayout
+            style="@style/dialog_relative_layout_style">
+
+            <ImageView
+                android:id="@+id/iv_drop_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="8dp"
+                android:tint="@color/colorPrimary"
+                app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp" />
+
+            <ImageView
+                android:id="@+id/iv_bank"
+                style="@style/hint_image_style"
+                app:srcCompat="@drawable/ic_bank_black_24dp" />
+
+            <TextView
+                android:id="@+id/tv_select_bank"
+                style="@style/edit_text_style"
+                android:layout_toRightOf="@id/iv_bank"
+                android:hint="@string/select_bank" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/dialog_relative_layout_style">
+
+            <ImageView
+                android:id="@+id/iv_account_number"
+                style="@style/hint_image_style"
+                app:srcCompat="@drawable/ic_edit_black_24dp" />
+
+            <EditText
+                android:id="@+id/et_account_number"
+                style="@style/edit_text_style"
+                android:layout_toRightOf="@id/iv_account_number"
+                android:hint="@string/account_number"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="16"
+                android:maxLines="1" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            style="@style/dialog_relative_layout_style">
+
+            <ImageView
+                android:id="@+id/iv_username"
+                style="@style/hint_image_style"
+                app:srcCompat="@drawable/ic_person_outline_black_24dp" />
+
+            <EditText
+                android:id="@+id/et_username"
+                style="@style/edit_text_style"
+                android:layout_toRightOf="@id/iv_username"
+                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ अआइईउऊऋएऐओऔकखगघङचछजझञाटठडढणतथदधनपफबभमयरलवशषसहक्षत्रज्ञ ा ि ी ु ू ृ े ै ो ौ ं ः "
+                android:hint="@string/account_user_name"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:maxLength="15"
+                android:maxLines="1"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/dialog_relative_layout_style">
+
+            <ImageView
+                android:id="@+id/iv_ifsc_code"
+                style="@style/hint_image_style"
+                app:srcCompat="@drawable/ic_edit_black_24dp" />
+
+            <EditText
+                android:id="@+id/et_ifsc_code"
+                style="@style/edit_text_style"
+                android:layout_toRightOf="@id/iv_ifsc_code"
+                android:hint="@string/ifsc_code"
+                android:imeOptions="actionNext"
+                android:inputType="textCapCharacters"
+                android:maxLength="11"
+                android:maxLines="1" />
+        </RelativeLayout>
+
+
+        <View
+            style="@style/view_style"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            style="@style/heading_textview_style"
+            android:text="@string/other_info" />
+
+        <RelativeLayout
+            style="@style/dialog_relative_layout_style">
+
+            <ImageView
+                android:id="@+id/iv_url_link"
+                style="@style/hint_image_style"
+                app:srcCompat="@drawable/ic_language_black_24dp" />
+
+            <EditText
+                android:id="@+id/url_link"
+                style="@style/edit_text_style"
+                android:layout_toRightOf="@id/iv_url_link"
+                android:hint="@string/bank_url"
+                android:imeOptions="actionDone"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/dialog_relative_layout_style"
+            android:layout_marginBottom="18dp">
+
+            <EditText
+                android:id="@+id/alias_name"
+                style="@style/edit_text_style"
+                android:layout_toRightOf="@id/iv_card_holder_alias"
+                android:hint="@string/alias_name"
+                android:imeOptions="actionNext"
+                android:maxLength="20"
+                android:maxLines="1"/>
+
+            <ImageView
+                android:id="@+id/iv_card_holder_alias"
+                style="@style/hint_image_style"
+                app:srcCompat="@drawable/ic_edit_black_24dp" />
+        </RelativeLayout>
+
+        <View style="@style/view_style" />
+
+        <LinearLayout
+            style="@style/btn_linear_style">
+
+            <Button
+                style="@style/btn_style"
+                android:text="@string/cancel" />
+
+            <View style="@style/horizontal_view_style" />
+
+            <Button
+                style="@style/btn_style"
+                android:text="Add" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

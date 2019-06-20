@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+
+    <LinearLayout style="@style/dialog_main_linear_layout_style">
+
+        <TextView
+            style="@style/heading_textview_style"
+            android:text="Write Note..." />
+
+
+
+            <EditText
+               android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/alias_name_logo"
+                android:hint="Note..."
+                android:maxLines="4"
+                android:lines="3"
+                android:maxLength="200"
+                android:padding="12dp"
+                android:drawableLeft="@drawable/ic_edit_black_24dp"
+                android:drawableTint="@color/colorPrimary"
+                android:drawablePadding="12dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:imeOptions="actionDone"/>
+
+        <View style="@style/view_style" />
+
+        <LinearLayout
+            style="@style/btn_linear_style"
+            android:layout_marginTop="18dp">
+
+            <Button
+                style="@style/btn_style"
+                android:text="@string/cancel" />
+
+            <View style="@style/horizontal_view_style" />
+
+            <Button
+                style="@style/btn_style"
+                android:text="@string/button_add_cash" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
