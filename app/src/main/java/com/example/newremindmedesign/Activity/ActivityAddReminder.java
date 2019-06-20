@@ -15,6 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.DatePicker;
@@ -24,7 +27,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
 import com.example.newremindmedesign.Adapter.RecyclerAdapterCategory;
 import com.example.newremindmedesign.Adapter.RecyclerAdapterPaymentOptions;
 import com.example.newremindmedesign.Adapter.RecyclerAdapterProvider;
@@ -43,6 +45,8 @@ import butterknife.ButterKnife;
 
 public class ActivityAddReminder extends AppCompatActivity implements View.OnClickListener {
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.iv_layout_show)
     ImageView ivLayoutShow;
     @BindView(R.id.iv_layout_hide)
@@ -127,6 +131,7 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
 
         ButterKnife.bind(this);
 
+
         listItems = getResources().getStringArray(R.array.notification_type);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
@@ -134,6 +139,14 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
 
         setRecyclerItemList();
         setOnClickListener();
+        setToolbar(toolbar,getResources().getString(R.string.title_add_reminder));
+    }
+
+    protected void setToolbar(Toolbar toolBar, String title) {
+        setSupportActionBar(toolBar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolBar.setTitle(title);
     }
 
     private void setOnClickListener() {
@@ -346,6 +359,26 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
                 break;
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_add_reminders, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                super.onBackPressed();
+                break;
+            case R.id.action_check:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void showNoteDialog() {
