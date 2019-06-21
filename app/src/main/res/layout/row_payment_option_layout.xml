@@ -11,15 +11,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <!--<TextView
             style="@style/heading_textview_style"
-            android:text="Payment Options"/>
+            android:text="Payment Options"/>-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"/>
+            android:padding="8dp"/>
 
         <ImageView
             android:id="@+id/iv_added_payment_options"

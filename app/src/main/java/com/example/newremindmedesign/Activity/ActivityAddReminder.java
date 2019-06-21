@@ -77,6 +77,12 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
     TextView tvNotifyInAdv;
     @BindView(R.id.tv_repeat)
     TextView tvRepeat;
+
+    @BindView(R.id.linear_layout_notify)
+    LinearLayout linearLayoutNotify;
+    @BindView(R.id.linear_layout_repeat)
+    LinearLayout linearLayoutRepeat;
+
     @BindView(R.id.relative_layout_date)
     RelativeLayout relativeLayoutDate;
     @BindView(R.id.relative_layout_time)
@@ -156,8 +162,10 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
 
     private void setOnClickListener() {
         relativeLayoutViewAll.setOnClickListener(this);
-        tvNotifyInAdv.setOnClickListener(this);
-        tvRepeat.setOnClickListener(this);
+       // tvNotifyInAdv.setOnClickListener(this);
+      //  tvRepeat.setOnClickListener(this);
+        linearLayoutNotify.setOnClickListener(this);
+        linearLayoutRepeat.setOnClickListener(this);
         relativeLayoutDate.setOnClickListener(this);
         relativeLayoutTime.setOnClickListener(this);
         tvNote.setOnClickListener(this);
@@ -331,11 +339,11 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
                 break;
 
 
-            case R.id.tv_notifi_in_adv:
+            case R.id.linear_layout_notify:
                 showNotifiInAdvDialog();
                 break;
 
-            case R.id.tv_repeat:
+            case R.id.linear_layout_repeat:
                 showRepeatType();
                 break;
 
