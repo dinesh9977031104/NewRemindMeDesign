@@ -245,7 +245,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:layout_marginBottom="12dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -360,14 +361,26 @@
                 </LinearLayout>
             </LinearLayout>
 
+
+            <View style="@style/view_style" />
+            <LinearLayout
+                style="@style/btn_linear_style"
+                android:layout_marginTop="18dp"
+                android:layout_below="@+id/layout_days">
+
+                <Button
+                    style="@style/btn_style"
+                    android:text="@string/cancel" />
+
+                <View style="@style/horizontal_view_style" />
+
+                <Button
+                    style="@style/btn_style"
+                    android:text="@string/button_add_cash" />
+
+            </LinearLayout>
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/layoutOverlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhiteTransparent"
-            android:visibility="gone" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

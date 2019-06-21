@@ -4,10 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
@@ -27,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
 import com.example.newremindmedesign.Adapter.RecyclerAdapterCategory;
 import com.example.newremindmedesign.Adapter.RecyclerAdapterPaymentOptions;
 import com.example.newremindmedesign.Adapter.RecyclerAdapterProvider;
@@ -89,16 +87,23 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
     TextView tvAlarmTime;
     @BindView(R.id.tv_note)
     TextView tvNote;
-
     @BindView(R.id.iv_added_category)
     ImageView ivAddedCategory;
     @BindView(R.id.card_view_added_category)
     CardView cardViewAddedCategory;
-
     @BindView(R.id.iv_added_payment_options)
     ImageView ivAddedPaymentOptions;
     @BindView(R.id.card_view_added_payment_options)
     CardView cardViewAddedPaymentOptions;
+    @BindView(R.id.relative_layout_view_all)
+    RelativeLayout relativeLayoutViewAll;
+    @BindView(R.id.iv_view_all_one)
+    ImageView ivViewAllOne;
+    @BindView(R.id.iv_view_all_two)
+    ImageView ivViewAllTwo;
+    @BindView(R.id.tv_view_all_hide)
+    TextView tvViewAllHide;
+
 
     private int mYearForDueDate;
     private int mMonthForDueDate;
@@ -139,7 +144,7 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
 
         setRecyclerItemList();
         setOnClickListener();
-        setToolbar(toolbar,getResources().getString(R.string.title_add_reminder));
+        setToolbar(toolbar, getResources().getString(R.string.title_add_reminder));
     }
 
     protected void setToolbar(Toolbar toolBar, String title) {
@@ -150,7 +155,7 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
     }
 
     private void setOnClickListener() {
-        tvViewAll.setOnClickListener(this);
+        relativeLayoutViewAll.setOnClickListener(this);
         tvNotifyInAdv.setOnClickListener(this);
         tvRepeat.setOnClickListener(this);
         relativeLayoutDate.setOnClickListener(this);
@@ -307,16 +312,24 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
                 }
                 break;
 
-
-            case R.id.tv_view_all:
+            case R.id.relative_layout_view_all:
                 if (clicked) {
                     layoutViewAll.setVisibility(View.GONE);
+                    ivViewAllOne.setVisibility(View.VISIBLE);
+                    ivViewAllTwo.setVisibility(View.GONE);
+                    tvViewAll.setVisibility(View.VISIBLE);
+                    tvViewAllHide.setVisibility(View.GONE);
                     clicked = false;
                 } else {
                     layoutViewAll.setVisibility(View.VISIBLE);
+                    ivViewAllOne.setVisibility(View.GONE);
+                    ivViewAllTwo.setVisibility(View.VISIBLE);
+                    tvViewAll.setVisibility(View.GONE);
+                    tvViewAllHide.setVisibility(View.VISIBLE);
                     clicked = true;
                 }
                 break;
+
 
             case R.id.tv_notifi_in_adv:
                 showNotifiInAdvDialog();

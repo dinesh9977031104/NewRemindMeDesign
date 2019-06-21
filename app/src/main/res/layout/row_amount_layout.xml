@@ -40,8 +40,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@+id/iv"
                     android:hint="Amount"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="16dp" />
+                    android:textColor="@color/colorBlack"/>
 
             </RelativeLayout>
         </LinearLayout>
