@@ -4,30 +4,24 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-
-
     <color name="colorIconLightGray">#DCDCDC</color>
     <color name="colorWhite">#FFFFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorInputText">#FF000000</color>
     <color name="colorButton">#FF000000</color>
-
     <color name="colorhint">#DCDCDC</color>
-
     <color name="colorTextDark">#FF353535</color>
     <color name="colorTextNormal">#FF555555</color>
     <color name="colorTextLight">#FF949494</color>
     <color name="colorTransparent">#00000000</color>
     <color name="colorWhiteTransparent">#99FFFFFF</color>
     <color name="colorRed">#FF0000</color>
+    <color name="colorGreen">#228B22</color>
     <color name="colorActivityBackground">#f1f1f1</color>
     <color name="colorActivityBackgroundDark">#ffe4e4e4</color>
     <color name="colorActivityBackgroundLight">#fff8f8f8</color>
-
     <color name="colorEditTextNormal">#99ffffff</color>
     <color name="colorEditTextFocused">#9fffffff</color>
-
-    // new added-------------------------------------------------------
     <color name="profileBackground">#7cfbe9e7</color>
     <color name="colorHeadingBackground">#EEEEEE</color>
     <color name="ColorBackground">#08eeeeee</color>

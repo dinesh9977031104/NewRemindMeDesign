@@ -57,7 +57,7 @@
                         android:visibility="visible"
                         android:layout_centerVertical="true"
                         android:drawableTint="@color/colorPrimary"
-                        android:text="View Repeat Reminders Option" />
+                        android:text="Repeat Reminders !" />
 
                     <TextView
                         android:id="@+id/tv_view_all_hide"
@@ -68,7 +68,7 @@
                         android:visibility="gone"
                         android:layout_centerVertical="true"
                         android:drawableTint="@color/colorPrimary"
-                        android:text="Select Repeat Reminders Option" />
+                        android:text="Select Option" />
 
 
                     <ImageView

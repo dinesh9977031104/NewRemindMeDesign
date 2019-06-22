@@ -17,7 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -77,12 +79,10 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
     TextView tvNotifyInAdv;
     @BindView(R.id.tv_repeat)
     TextView tvRepeat;
-
     @BindView(R.id.linear_layout_notify)
     LinearLayout linearLayoutNotify;
     @BindView(R.id.linear_layout_repeat)
     LinearLayout linearLayoutRepeat;
-
     @BindView(R.id.relative_layout_date)
     RelativeLayout relativeLayoutDate;
     @BindView(R.id.relative_layout_time)
@@ -109,6 +109,10 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
     ImageView ivViewAllTwo;
     @BindView(R.id.tv_view_all_hide)
     TextView tvViewAllHide;
+    @BindView(R.id.linear_layout_note)
+    LinearLayout linearLayoutNote;
+    @BindView(R.id.tv_note_set)
+    TextView tvNoteSet;
 
 
     private int mYearForDueDate;
@@ -162,17 +166,16 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
 
     private void setOnClickListener() {
         relativeLayoutViewAll.setOnClickListener(this);
-       // tvNotifyInAdv.setOnClickListener(this);
-      //  tvRepeat.setOnClickListener(this);
         linearLayoutNotify.setOnClickListener(this);
         linearLayoutRepeat.setOnClickListener(this);
         relativeLayoutDate.setOnClickListener(this);
         relativeLayoutTime.setOnClickListener(this);
-        tvNote.setOnClickListener(this);
+        linearLayoutNote.setOnClickListener(this);
         relativeLayoutViewCategory.setOnClickListener(this);
         relativeLayoutViewPayment.setOnClickListener(this);
         ivAddedCategory.setOnClickListener(this);
         ivAddedPaymentOptions.setOnClickListener(this);
+
     }
 
 
@@ -286,36 +289,36 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.relative_layout_view_category:
                 if (clicked) {
-                    layoutCategories.setVisibility(View.VISIBLE);
-                    ivLayoutHide.setVisibility(View.VISIBLE);
-                    ivLayoutShow.setVisibility(View.GONE);
-                    tvSelectCategory.setVisibility(View.VISIBLE);
-                    tvViewCategory.setVisibility(View.GONE);
-                    clicked = false;
-                } else {
                     layoutCategories.setVisibility(View.GONE);
                     ivLayoutHide.setVisibility(View.GONE);
                     ivLayoutShow.setVisibility(View.VISIBLE);
                     tvSelectCategory.setVisibility(View.GONE);
                     tvViewCategory.setVisibility(View.VISIBLE);
+                    clicked = false;
+                } else {
+                    layoutCategories.setVisibility(View.VISIBLE);
+                    ivLayoutHide.setVisibility(View.VISIBLE);
+                    ivLayoutShow.setVisibility(View.GONE);
+                    tvSelectCategory.setVisibility(View.VISIBLE);
+                    tvViewCategory.setVisibility(View.GONE);
                     clicked = true;
                 }
                 break;
 
             case R.id.relative_layout_view_payment:
                 if (clicked) {
-                    layoutPaymentOptions.setVisibility(View.VISIBLE);
-                    ivLayoutHide2.setVisibility(View.VISIBLE);
-                    ivLayoutShow2.setVisibility(View.GONE);
-                    tvSelectPaymentOption.setVisibility(View.VISIBLE);
-                    tvViewPaymentOption.setVisibility(View.GONE);
-                    clicked = false;
-                } else {
                     layoutPaymentOptions.setVisibility(View.GONE);
                     ivLayoutHide2.setVisibility(View.GONE);
                     ivLayoutShow2.setVisibility(View.VISIBLE);
                     tvSelectPaymentOption.setVisibility(View.GONE);
                     tvViewPaymentOption.setVisibility(View.VISIBLE);
+                    clicked = false;
+                } else {
+                    layoutPaymentOptions.setVisibility(View.VISIBLE);
+                    ivLayoutHide2.setVisibility(View.VISIBLE);
+                    ivLayoutShow2.setVisibility(View.GONE);
+                    tvSelectPaymentOption.setVisibility(View.VISIBLE);
+                    tvViewPaymentOption.setVisibility(View.GONE);
                     clicked = true;
                 }
                 break;
@@ -355,7 +358,7 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
                 setAlarmTime();
                 break;
 
-            case R.id.tv_note:
+            case R.id.linear_layout_note:
                 showNoteDialog();
                 break;
 
@@ -406,6 +409,21 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         final Dialog dialog = new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_note_layout);
+
+        final Button btnCancel = (Button)dialog.findViewById(R.id.btn_cancel);
+        final Button btnAdd = (Button)dialog.findViewById(R.id.btn_add);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+             EditText etNote = (EditText)dialog.findViewById(R.id.et_note);
+             String note = etNote.getText().toString();
+             dialog.dismiss();
+             tvNoteSet.setText(note);
+            }
+        });
+
         dialog.show();
     }
 
@@ -538,12 +556,29 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_electricity_bill_layout);
         final TextView textView = (TextView) dialog.findViewById(R.id.tv_provider);
+        final Button btnCancel = (Button)dialog.findViewById(R.id.btn_cancel);
+        final Button btnAdd = (Button)dialog.findViewById(R.id.btn_add);
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showElectricityProviderDialog();
             }
         });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSuccessDialog();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFaildDialog();
+            }
+        });
+
         dialog.show();
     }
 
@@ -633,6 +668,20 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, paymentOptionList);
         recyclerView.setAdapter(rvAdapter);
+        dialog.show();
+    }
+
+    private void showSuccessDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_success);
+        dialog.show();
+    }
+
+    private void showFaildDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_failed);
         dialog.show();
     }
 }
