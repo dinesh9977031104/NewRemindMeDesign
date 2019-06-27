@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,9 +29,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.example.newremindmedesign.Adapter.RecyclerAdapterCategory;
-import com.example.newremindmedesign.Adapter.RecyclerAdapterPaymentOptions;
 import com.example.newremindmedesign.Adapter.RecyclerAdapterProvider;
+import com.example.newremindmedesign.Adapter.SpinnerManager;
 import com.example.newremindmedesign.Model.RecyclerModel;
 import com.example.newremindmedesign.R;
 import com.example.newremindmedesign.Utils.RecyclerViewClickListener;
@@ -115,26 +116,209 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
     TextView tvNoteSet;
 
 
+   /* @BindView(R.id.ivFullScreenImage)
+    ImageView ivFullScreenImage;*/
+
     private int mYearForDueDate;
     private int mMonthForDueDate;
     private int mDayForDueDate;
 
-    private RecyclerView recyclerView, recyclerViewCategory;
-    private ArrayList<RecyclerModel> paymentOptionList, categoryList;
-    private RecyclerAdapterPaymentOptions adapter;
-    private RecyclerAdapterCategory adapterCategory;
 
-    private int[] paymentIconList = new int[]{R.drawable.payment_option_credit_card, R.drawable.payment_option_debit_card, R.drawable.payment_option_net_banking,
-            R.drawable.payment_option_cash, R.drawable.payment_option_check};
+    private int[] paymentIconList = new int[]{
+            R.drawable.payment_option_credit_card,
+            R.drawable.payment_option_debit_card,
+            R.drawable.payment_option_net_banking,
+            R.drawable.payment_option_cash,
+            R.drawable.payment_option_check};
 
-    private String[] paymentTypeList = new String[]{"Credit Card", "Debit Card", "NetBanking", "Cash", "Check"};
+    private String[] paymentTypeList = new String[]{
+            "Credit Card",
+            "Debit Card",
+            "NetBanking",
+            "Cash",
+            "Check"};
 
 
-    private int[] categoryIconList = new int[]{R.drawable.category_electricity, R.drawable.category_insurance, R.drawable.category_landline,
-            R.drawable.category_gas, R.drawable.category_water, R.drawable.category_custom};
+    private int[] categoryIconList = new int[]{
+            R.drawable.category_electricity,
+            R.drawable.category_insurance,
+            R.drawable.category_landline,
+            R.drawable.category_gas,
+            R.drawable.category_water,
+            R.drawable.category_pluse};
 
-    private String[] categoryNameList = new String[]{"Electricity", "Insurance", "Landline", "Gas", "Water", "Custom"};
+    private String[] categoryNameList = new String[]{
+            "Electricity",
+            "Insurance",
+            "Landline",
+            "Gas",
+            "Water",
+            "Add Custom Category"};
 
+
+    private int[] electricityProviderIcon = new int[]{
+            R.drawable.electricity_tp_ajmer,
+            R.drawable.electricity_mp_rural,
+            R.drawable.electricity_chamundeshwari,
+            R.drawable.electricity_adani,
+            R.drawable.electricity_india_power,
+            R.drawable.electricity_bikaner,
+            R.drawable.electricity_new_delhi,
+            R.drawable.electricity_punjab_state};
+
+    private String[] electricityProviderName = new String[]{
+            "Ajmer Vidhyut Vitaran Nigam LTD",
+            "MP Madhya Kshetra(Rural)",
+            "Chamundeshwari Electricity",
+            "Adani Electricity",
+            "India Power Electricity",
+            "Bikaner Electricity Provider",
+            "New Delhi Electricity",
+            "Punjab Electricity"};
+
+
+    private int[] landlineProviderIcon = new int[]{
+            R.drawable.landline_airtel,
+            R.drawable.landline_bsnl,
+            R.drawable.landline_docomo,
+            R.drawable.landline_mtnl,
+            R.drawable.landline_mtnl,
+            R.drawable.landline_reliance};
+
+    private String[] landlineProviderName = new String[]{
+            "Airtel",
+            "BSNL",
+            "TATA Docomo",
+            "MTNL delhi",
+            "MTNL Mumbai",
+            "Reliance"};
+
+
+    private int[] gasProviderIcon = new int[]{
+            R.drawable.gas_aavantika,
+            R.drawable.gas_adani,
+            R.drawable.gas_centralup,
+            R.drawable.gas_charotargas,
+            R.drawable.gas_gail,
+            R.drawable.gas_gujaratgas,
+            R.drawable.gas_haryanacity,
+            R.drawable.gas_indianoil};
+
+    private String[] gasProviderName = new String[]{
+            "Aavantika Gas",
+            "Adani Gas",
+            "Central UP Gas",
+            "Charottar Gas",
+            "GAIL Gas",
+            "Gujarat Gas",
+            "Haryana City Gas",
+            "Indian Oil Gas"};
+
+    private int[] waterProviderIcon = new int[]{
+            R.drawable.water_bangalore,
+            R.drawable.water_bhopal,
+            R.drawable.water_delhi,
+            R.drawable.water_gwalior,
+            R.drawable.water_haryana,
+            R.drawable.water_indore,
+            R.drawable.water_jabalpur,
+            R.drawable.water_ujjain};
+
+    private String[] waterProviderName = new String[]{
+            "Bangalore Water Provider",
+            "Bhopal Nagar Nigam",
+            "Delhi Water Providers",
+            "Gwalior Nagar Nigam",
+            "Haryana Jal Board",
+            "Indore Nagar Nigam",
+            "Jabalpur Nagar Nigam",
+            "Ujjain Nagar Nigam"};
+
+
+    private int[] bankIcon = new int[]{
+            R.drawable.bank_axis,
+            R.drawable.bank_hdfc,
+            R.drawable.bank_icici,
+            R.drawable.bank_kotak,
+            R.drawable.bank_sbi};
+
+    private String[] bankName = new String[]{
+            "Axis Bank",
+            "HDFC Bank",
+            "ICICI Bank",
+            "Kotak Mahindra Bank",
+            "SBI Bank"};
+
+    private int[] lifeInsuranceIcon = new int[]{
+            R.drawable.health_bajaj,
+            R.drawable.health_bharti,
+            R.drawable.health_cholamandalam,
+            R.drawable.health_cigna,
+            R.drawable.health_future};
+
+    private String[] lifeInusranceName = new String[]{
+            "Bajaj Life Insurance",
+            "Bharti AXA Life Insurance",
+            "Cholamandalam Life Insurance",
+            "Cigna Life Insurance",
+            "Future India Life Insurance"};
+
+    private int[] healthInsuranceIcon = new int[]{
+            R.drawable.health_bajaj,
+            R.drawable.health_bharti,
+            R.drawable.health_cholamandalam,
+            R.drawable.health_cigna,
+            R.drawable.health_future};
+
+    private String[] healthInsuranceName = new String[]{
+            "Bajaj Health Insurance",
+            "Bharti AXA Health Insurance",
+            "Cholamandalam Health Insurance",
+            "Cigna Health Insurance",
+            "Future India Health Insurance"};
+
+    private int[] bikeInsuranceIcon = new int[]{
+            R.drawable.bike_bajaj,
+            R.drawable.bike_bharti,
+            R.drawable.bike_hdfc,
+            R.drawable.bike_iffco,
+            R.drawable.bike_liberty};
+
+    private String[] bikeInsuranceName = new String[]{
+            "Bajaj Alias Bike Insurance",
+            "Bharti AXA Bike Insurance",
+            "HDFC Bike Insurance",
+            "Iffco Tokio Bike Insurance",
+            "Liberty Bike Insurance"};
+
+    private int[] carInsuranceIcon = new int[]{
+            R.drawable.car_bajaj,
+            R.drawable.car_bharti,
+            R.drawable.car_cholamandalam,
+            R.drawable.car_future,
+            R.drawable.car_hdfc};
+
+    private String[] carInsuranceName = new String[]{
+            "Bajaj Car Insurance",
+            "Bharti AXA Car Insurance",
+            "Cholamandalam Car Insurance",
+            "Future India Car Insurance",
+            "HDFC Car Insurance"};
+
+
+    private int[] termInsuranceIcon = new int[]{
+            R.drawable.term_aegon,
+            R.drawable.term_aviva,
+            R.drawable.term_bajaj,
+            R.drawable.term_bharti,
+            R.drawable.term_birla};
+
+    private String[] termInsuranceName = new String[]{
+            "Aegon Term Insurance",
+            "Aviva Term Insurance",
+            "Bajaj Term Insurance",
+            "Bharti Axa Term Insurance",
+            "Birla Sun Life Term Insurance"};
 
     boolean clicked = false;
     String[] listItems;
@@ -143,16 +327,9 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reminder);
-
         ButterKnife.bind(this);
-
-
         listItems = getResources().getStringArray(R.array.notification_type);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        recyclerViewCategory = (RecyclerView) findViewById(R.id.recycler_category);
-
-        setRecyclerItemList();
         setOnClickListener();
         setToolbar(toolbar, getResources().getString(R.string.title_add_reminder));
     }
@@ -176,110 +353,8 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         ivAddedCategory.setOnClickListener(this);
         ivAddedPaymentOptions.setOnClickListener(this);
 
-    }
+       // ivFullScreenImage.setOnClickListener(this);
 
-
-    private void setRecyclerItemList() {
-        //------------------------------------payment options----------------
-        paymentOptionList = addItem();
-        adapter = new RecyclerAdapterPaymentOptions(this, paymentOptionList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                switch (position) {
-                    case 0:
-                        showCreditCardDialog();
-                        break;
-                    case 1:
-                        showCreditCardDialog();
-                        break;
-                    case 2:
-                        showNetbankingDialog();
-                        break;
-                    case 3:
-                        showCashDialog();
-                        break;
-                    case 4:
-                        showCashDialog();
-                        break;
-
-                }
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
-
-        //--------------------category-------------------
-        categoryList = addCategoryItem();
-        adapterCategory = new RecyclerAdapterCategory(this, categoryList);
-        recyclerViewCategory.setAdapter(adapterCategory);
-        recyclerViewCategory.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        recyclerViewCategory.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerViewCategory, new RecyclerViewClickListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-
-                switch (position) {
-                    case 0:
-                        showElectricityDialog();
-                        break;
-                    case 1:
-                        showInsuranceDialog();
-                        break;
-                    case 2:
-                        showLandlineDialog();
-                        break;
-                    case 3:
-                        showGasDialog();
-                        break;
-                    case 4:
-                        showWaterBillDialog();
-                        break;
-                    case 5:
-                        showCustomCategoryDialog();
-                        break;
-
-                }
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
-    }
-
-    private ArrayList<RecyclerModel> addItem() {
-
-        ArrayList<RecyclerModel> list = new ArrayList<>();
-
-        for (int i = 0; i < paymentTypeList.length; i++) {
-            RecyclerModel recyclerModel = new RecyclerModel();
-            recyclerModel.setName(paymentTypeList[i]);
-            recyclerModel.setImage_drawable(paymentIconList[i]);
-            list.add(recyclerModel);
-        }
-
-        return list;
-    }
-
-
-    private ArrayList<RecyclerModel> addCategoryItem() {
-        ArrayList<RecyclerModel> list = new ArrayList<>();
-        for (int i = 0; i < categoryNameList.length; i++) {
-            RecyclerModel recyclerModel = new RecyclerModel();
-            recyclerModel.setName(categoryNameList[i]);
-            recyclerModel.setImage_drawable(categoryIconList[i]);
-            list.add(recyclerModel);
-        }
-
-        return list;
     }
 
 
@@ -288,39 +363,11 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
 
         switch (v.getId()) {
             case R.id.relative_layout_view_category:
-                if (clicked) {
-                    layoutCategories.setVisibility(View.GONE);
-                    ivLayoutHide.setVisibility(View.GONE);
-                    ivLayoutShow.setVisibility(View.VISIBLE);
-                    tvSelectCategory.setVisibility(View.GONE);
-                    tvViewCategory.setVisibility(View.VISIBLE);
-                    clicked = false;
-                } else {
-                    layoutCategories.setVisibility(View.VISIBLE);
-                    ivLayoutHide.setVisibility(View.VISIBLE);
-                    ivLayoutShow.setVisibility(View.GONE);
-                    tvSelectCategory.setVisibility(View.VISIBLE);
-                    tvViewCategory.setVisibility(View.GONE);
-                    clicked = true;
-                }
+                showCategoryLayout();
                 break;
 
             case R.id.relative_layout_view_payment:
-                if (clicked) {
-                    layoutPaymentOptions.setVisibility(View.GONE);
-                    ivLayoutHide2.setVisibility(View.GONE);
-                    ivLayoutShow2.setVisibility(View.VISIBLE);
-                    tvSelectPaymentOption.setVisibility(View.GONE);
-                    tvViewPaymentOption.setVisibility(View.VISIBLE);
-                    clicked = false;
-                } else {
-                    layoutPaymentOptions.setVisibility(View.VISIBLE);
-                    ivLayoutHide2.setVisibility(View.VISIBLE);
-                    ivLayoutShow2.setVisibility(View.GONE);
-                    tvSelectPaymentOption.setVisibility(View.VISIBLE);
-                    tvViewPaymentOption.setVisibility(View.GONE);
-                    clicked = true;
-                }
+                showPaymentOptionsLayout();
                 break;
 
             case R.id.relative_layout_view_all:
@@ -381,13 +428,28 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
                     clicked = true;
                 }
                 break;
+
+           /* case R.id.ivFullScreenImage:
+                final Dialog dialog = new Dialog(ActivityAddReminder.this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                dialog.setContentView(R.layout.row_full_screen_image);
+                dialog.setTitle("My OTP");
+                Drawable drawable = ((ImageView) v).getDrawable();
+                ((ImageView) dialog.findViewById(R.id.iv_full_image)).setImageDrawable(drawable);
+                ImageView ivProfileDialogCancle = (ImageView) dialog.findViewById(R.id.iv_profile_dialog_cancel);
+                ivProfileDialogCancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+                dialog.show();
+                break;*/
         }
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_add_reminders, menu);
         return true;
     }
@@ -400,6 +462,7 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
                 super.onBackPressed();
                 break;
             case R.id.action_check:
+                showReminderTypeLayout();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -410,17 +473,17 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_note_layout);
 
-        final Button btnCancel = (Button)dialog.findViewById(R.id.btn_cancel);
-        final Button btnAdd = (Button)dialog.findViewById(R.id.btn_add);
+        final Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        final Button btnAdd = (Button) dialog.findViewById(R.id.btn_add);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-             EditText etNote = (EditText)dialog.findViewById(R.id.et_note);
-             String note = etNote.getText().toString();
-             dialog.dismiss();
-             tvNoteSet.setText(note);
+                EditText etNote = (EditText) dialog.findViewById(R.id.et_note);
+                String note = etNote.getText().toString();
+                dialog.dismiss();
+                tvNoteSet.setText(note);
             }
         });
 
@@ -551,13 +614,246 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         mTimePicker.show();
     }
 
+
+    private void showCreditCardList() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_credit_card_list);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        Button btnAddNew = (Button) dialog.findViewById(R.id.btn_add_new);
+
+        btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCreditCardDialog();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void showDebitCardList() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_debit_card_list);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        Button btnAddNew = (Button) dialog.findViewById(R.id.btn_add_new);
+
+        btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCreditCardDialog();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void showNetBankingList() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_netbanking_list);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        Button btnAddNew = (Button) dialog.findViewById(R.id.btn_add_new);
+
+        btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //  showCreditCardDialog();
+                showNetbankingDialog();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+
+    private void showCasePaymentList() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_cash_list);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        Button btnAddNew = (Button) dialog.findViewById(R.id.btn_add_new);
+
+        btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //  showCreditCardDialog();
+                showCashDialog();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void showChequeList() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_cheque_list);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        Button btnAddNew = (Button) dialog.findViewById(R.id.btn_add_new);
+
+        btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // showCreditCardDialog();
+                showCashDialog();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void showCategoryLayout() {
+        Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_recycler_view_layout);
+        ArrayList<RecyclerModel> categoryList = null;
+        categoryList = addCategoryItems();
+        RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler_view_provider);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, categoryList);
+        recyclerView.setAdapter(rvAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+                switch (position) {
+                    case 0:
+                        showElectricityDialog();
+                        break;
+                    case 1:
+                        showInsuranceDialog();
+                        break;
+                    case 2:
+                        showLandlineDialog();
+                        break;
+                    case 3:
+                        showGasDialog();
+                        break;
+                    case 4:
+                        showWaterBillDialog();
+                        break;
+                    case 5:
+                        showCustomCategoryDialog();
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+        dialog.show();
+    }
+
+    private ArrayList<RecyclerModel> addCategoryItems() {
+
+        ArrayList<RecyclerModel> list = new ArrayList<>();
+
+        for (int i = 0; i < categoryNameList.length; i++) {
+            RecyclerModel recyclerModel = new RecyclerModel();
+            recyclerModel.setName(categoryNameList[i]);
+            recyclerModel.setImage(categoryIconList[i]);
+            list.add(recyclerModel);
+        }
+
+        return list;
+    }
+
+    private void showPaymentOptionsLayout() {
+        Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_recycler_view_layout);
+        ArrayList<RecyclerModel> categoryList = null;
+        categoryList = addPaymentOptionItems();
+        RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler_view_provider);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, categoryList);
+        recyclerView.setAdapter(rvAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                switch (position) {
+                    case 0:
+                        showCreditCardList();
+                        break;
+                    case 1:
+                        showDebitCardList();
+                        break;
+                    case 2:
+                        showNetBankingList();
+                        break;
+                    case 3:
+                        showCasePaymentList();
+                        break;
+                    case 4:
+                        showChequeList();
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+        dialog.show();
+    }
+
+    private ArrayList<RecyclerModel> addPaymentOptionItems() {
+
+        ArrayList<RecyclerModel> list = new ArrayList<>();
+
+        for (int i = 0; i < paymentTypeList.length; i++) {
+            RecyclerModel recyclerModel = new RecyclerModel();
+            recyclerModel.setName(paymentTypeList[i]);
+            recyclerModel.setImage(paymentIconList[i]);
+            list.add(recyclerModel);
+        }
+
+        return list;
+    }
+
     private void showElectricityDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_electricity_bill_layout);
         final TextView textView = (TextView) dialog.findViewById(R.id.tv_provider);
-        final Button btnCancel = (Button)dialog.findViewById(R.id.btn_cancel);
-        final Button btnAdd = (Button)dialog.findViewById(R.id.btn_add);
+        final Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        final Button btnAdd = (Button) dialog.findViewById(R.id.btn_add);
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -570,12 +866,14 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 showSuccessDialog();
+                dialog.dismiss();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showFaildDialog();
+                dialog.dismiss();
             }
         });
 
@@ -586,6 +884,81 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         final Dialog dialog = new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_insurance_layout);
+        Button btnAdd = (Button) dialog.findViewById(R.id.btn_add);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
+        String insurance;
+        String[] insuranceList;
+        Spinner spInsurance = (Spinner) dialog.findViewById(R.id.sp_insurance);
+
+        insuranceList = getResources().getStringArray(R.array.insurance_list);
+        spInsurance.setAdapter(SpinnerManager.setSpinner(this, insuranceList));
+
+        spInsurance.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 1:
+                        showLifeInsuranceList();
+                        break;
+                    case 2:
+                        showHealthInsuranceProviderList();
+                        break;
+                    case 3:
+                        showBikeInsuranceList();
+                        break;
+                    case 4:
+                        showCarInsuranceList();
+                        break;
+                    case 5:
+                        showTermInsuranceList();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSuccessDialog();
+                dialog.dismiss();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFaildDialog();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void showReminderTypeLayout() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_reminder_type);
+        Button btnAdd = (Button) dialog.findViewById(R.id.btn_add);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSuccessDialog();
+                dialog.dismiss();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFaildDialog();
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 
@@ -594,6 +967,31 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         final Dialog dialog = new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_landline_layout);
+        TextView tvLandlineProvider = (TextView) dialog.findViewById(R.id.tv_landline_provider);
+        Button btnAdd = (Button) dialog.findViewById(R.id.btn_add);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
+        tvLandlineProvider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLandlineProviderDialog();
+            }
+        });
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSuccessDialog();
+                dialog.dismiss();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFaildDialog();
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 
@@ -601,6 +999,32 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         final Dialog dialog = new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_gas_layout);
+        TextView tvGasProvider = (TextView) dialog.findViewById(R.id.tv_gas_provider);
+        Button btnAdd = (Button) dialog.findViewById(R.id.btn_add);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
+        tvGasProvider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showGasProviderDialog();
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSuccessDialog();
+                dialog.dismiss();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFaildDialog();
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 
@@ -608,6 +1032,31 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         final Dialog dialog = new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_water_bill_layout);
+        TextView tvWaterProvider = (TextView) dialog.findViewById(R.id.tv_water_provide);
+        Button btnAdd = (Button) dialog.findViewById(R.id.btn_add);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
+        tvWaterProvider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showWaterProviderDialog();
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSuccessDialog();
+                dialog.dismiss();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFaildDialog();
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 
@@ -615,26 +1064,199 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         final Dialog dialog = new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_custom_category_layout);
+        Button btnAdd = (Button) dialog.findViewById(R.id.btn_add);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSuccessDialog();
+                dialog.dismiss();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFaildDialog();
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 
 
     private void showElectricityProviderDialog() {
-        Dialog dialog = new Dialog(this);
+        final Dialog dialog = new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_recycler_view_layout);
+        ArrayList<RecyclerModel> electricityProviderList = null;
+        electricityProviderList = addElectricityProviders();
         RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler_view_provider);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, categoryList);
+        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, electricityProviderList);
         recyclerView.setAdapter(rvAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
         dialog.show();
     }
+
+    private ArrayList<RecyclerModel> addElectricityProviders() {
+        ArrayList<RecyclerModel> list = new ArrayList<>();
+        for (int i = 0; i < electricityProviderName.length; i++) {
+            RecyclerModel recyclerModel = new RecyclerModel();
+            recyclerModel.setName(electricityProviderName[i]);
+            recyclerModel.setImage(electricityProviderIcon[i]);
+            list.add(recyclerModel);
+        }
+
+        return list;
+    }
+
+
+    private void showLandlineProviderDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_recycler_view_layout);
+        ArrayList<RecyclerModel> landlineProviderList = null;
+        landlineProviderList = addLandlindeProvider();
+        RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler_view_provider);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, landlineProviderList);
+        recyclerView.setAdapter(rvAdapter);
+        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+        dialog.show();
+    }
+
+    private ArrayList<RecyclerModel> addLandlindeProvider() {
+        ArrayList<RecyclerModel> list = new ArrayList<>();
+        for (int i = 0; i < landlineProviderName.length; i++) {
+            RecyclerModel recyclerModel = new RecyclerModel();
+            recyclerModel.setName(landlineProviderName[i]);
+            recyclerModel.setImage(landlineProviderIcon[i]);
+            list.add(recyclerModel);
+        }
+
+        return list;
+    }
+
+
+    private void showGasProviderDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_recycler_view_layout);
+        ArrayList<RecyclerModel> gasProviderList = null;
+        gasProviderList = addGasProvider();
+        RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler_view_provider);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, gasProviderList);
+        recyclerView.setAdapter(rvAdapter);
+        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+        dialog.show();
+    }
+
+    private ArrayList<RecyclerModel> addGasProvider() {
+        ArrayList<RecyclerModel> list = new ArrayList<>();
+        for (int i = 0; i < gasProviderName.length; i++) {
+            RecyclerModel recyclerModel = new RecyclerModel();
+            recyclerModel.setName(gasProviderName[i]);
+            recyclerModel.setImage(gasProviderIcon[i]);
+            list.add(recyclerModel);
+        }
+
+        return list;
+    }
+
+
+    private void showWaterProviderDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_recycler_view_layout);
+        ArrayList<RecyclerModel> waterProviderList = null;
+        waterProviderList = addWaterProviders();
+        RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler_view_provider);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, waterProviderList);
+        recyclerView.setAdapter(rvAdapter);
+        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+        dialog.show();
+    }
+
+    private ArrayList<RecyclerModel> addWaterProviders() {
+        ArrayList<RecyclerModel> list = new ArrayList<>();
+        for (int i = 0; i < waterProviderName.length; i++) {
+            RecyclerModel recyclerModel = new RecyclerModel();
+            recyclerModel.setName(waterProviderName[i]);
+            recyclerModel.setImage(waterProviderIcon[i]);
+            list.add(recyclerModel);
+        }
+
+        return list;
+    }
+
 
     //----------------------------------payment options dialog-------------------------------------
     private void showCreditCardDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.row_credit_card_layout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        Button btnAdd = (Button) dialog.findViewById(R.id.btn_add);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSuccessDialog();
+                dialog.dismiss();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFaildDialog();
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 
@@ -643,10 +1265,27 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         dialog.setContentView(R.layout.row_netbanking_layout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         final TextView tvSelectBank = dialog.findViewById(R.id.tv_select_bank);
+        Button btnAdd = (Button) dialog.findViewById(R.id.btn_add);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
         tvSelectBank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showBankList();
+            }
+        });
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSuccessDialog();
+                dialog.dismiss();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFaildDialog();
+                dialog.dismiss();
             }
         });
         dialog.show();
@@ -657,24 +1296,75 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         final Dialog dialog = new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_cash_layout);
+        Button btnAdd = (Button) dialog.findViewById(R.id.btn_add);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSuccessDialog();
+                dialog.dismiss();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFaildDialog();
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 
+
     private void showBankList() {
-        Dialog dialog = new Dialog(this);
+        final Dialog dialog = new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_recycler_view_layout);
+        ArrayList<RecyclerModel> bankList = null;
+        bankList = addBankList();
         RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler_view_provider);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, paymentOptionList);
+        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, bankList);
         recyclerView.setAdapter(rvAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
         dialog.show();
+    }
+
+    private ArrayList<RecyclerModel> addBankList() {
+        ArrayList<RecyclerModel> list = new ArrayList<>();
+        for (int i = 0; i < bankName.length; i++) {
+            RecyclerModel recyclerModel = new RecyclerModel();
+            recyclerModel.setName(bankName[i]);
+            recyclerModel.setImage(bankIcon[i]);
+            list.add(recyclerModel);
+        }
+
+        return list;
     }
 
     private void showSuccessDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_success);
+        Button btnOK = (Button) dialog.findViewById(R.id.btn_ok);
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 
@@ -682,7 +1372,198 @@ public class ActivityAddReminder extends AppCompatActivity implements View.OnCli
         final Dialog dialog = new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.row_failed);
+        Button btnOK = (Button) dialog.findViewById(R.id.btn_ok);
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
+    }
+
+    private void showLifeInsuranceList() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_recycler_view_layout);
+        ArrayList<RecyclerModel> lifeInsuranceProviderList = null;
+        lifeInsuranceProviderList = addLifeInsuranceList();
+        RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler_view_provider);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, lifeInsuranceProviderList);
+        recyclerView.setAdapter(rvAdapter);
+        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+        dialog.show();
+    }
+
+    private ArrayList<RecyclerModel> addLifeInsuranceList() {
+        ArrayList<RecyclerModel> list = new ArrayList<>();
+        for (int i = 0; i < lifeInusranceName.length; i++) {
+            RecyclerModel recyclerModel = new RecyclerModel();
+            recyclerModel.setName(lifeInusranceName[i]);
+            recyclerModel.setImage(lifeInsuranceIcon[i]);
+            list.add(recyclerModel);
+        }
+
+        return list;
+    }
+
+    private void showHealthInsuranceProviderList() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_recycler_view_layout);
+        ArrayList<RecyclerModel> healthInsuranceList = null;
+        healthInsuranceList = addHealthInsuranceList();
+        RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler_view_provider);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, healthInsuranceList);
+        recyclerView.setAdapter(rvAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+        dialog.show();
+    }
+
+    private ArrayList<RecyclerModel> addHealthInsuranceList() {
+        ArrayList<RecyclerModel> list = new ArrayList<>();
+        for (int i = 0; i < healthInsuranceName.length; i++) {
+            RecyclerModel recyclerModel = new RecyclerModel();
+            recyclerModel.setName(healthInsuranceName[i]);
+            recyclerModel.setImage(healthInsuranceIcon[i]);
+            list.add(recyclerModel);
+        }
+
+        return list;
+    }
+
+    private void showBikeInsuranceList() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_recycler_view_layout);
+        ArrayList<RecyclerModel> bikeInsuranceList = null;
+        bikeInsuranceList = addBikeInsuranceList();
+        RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler_view_provider);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, bikeInsuranceList);
+        recyclerView.setAdapter(rvAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+        dialog.show();
+    }
+
+    private ArrayList<RecyclerModel> addBikeInsuranceList() {
+        ArrayList<RecyclerModel> list = new ArrayList<>();
+        for (int i = 0; i < bikeInsuranceName.length; i++) {
+            RecyclerModel recyclerModel = new RecyclerModel();
+            recyclerModel.setName(bikeInsuranceName[i]);
+            recyclerModel.setImage(bikeInsuranceIcon[i]);
+            list.add(recyclerModel);
+        }
+
+        return list;
+    }
+
+    private void showCarInsuranceList() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_recycler_view_layout);
+        ArrayList<RecyclerModel> carInsuranceList = null;
+        carInsuranceList = addCarInsuranceList();
+        RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler_view_provider);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, carInsuranceList);
+        recyclerView.setAdapter(rvAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+        dialog.show();
+    }
+
+    private ArrayList<RecyclerModel> addCarInsuranceList() {
+        ArrayList<RecyclerModel> list = new ArrayList<>();
+        for (int i = 0; i < carInsuranceName.length; i++) {
+            RecyclerModel recyclerModel = new RecyclerModel();
+            recyclerModel.setName(carInsuranceName[i]);
+            recyclerModel.setImage(carInsuranceIcon[i]);
+            list.add(recyclerModel);
+        }
+
+        return list;
+    }
+
+    private void showTermInsuranceList() {
+        final Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.row_recycler_view_layout);
+        ArrayList<RecyclerModel> termInsuranceList = null;
+        termInsuranceList = addTermInsuranceList();
+        RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler_view_provider);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerAdapterProvider rvAdapter = new RecyclerAdapterProvider(this, termInsuranceList);
+        recyclerView.setAdapter(rvAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerViewClickListener.RecyclerTouchListener(this, recyclerView, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+        dialog.show();
+    }
+
+    private ArrayList<RecyclerModel> addTermInsuranceList() {
+        ArrayList<RecyclerModel> list = new ArrayList<>();
+        for (int i = 0; i < termInsuranceName.length; i++) {
+            RecyclerModel recyclerModel = new RecyclerModel();
+            recyclerModel.setName(termInsuranceName[i]);
+            recyclerModel.setImage(termInsuranceIcon[i]);
+            list.add(recyclerModel);
+        }
+
+        return list;
     }
 }
 

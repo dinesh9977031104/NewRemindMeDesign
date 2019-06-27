@@ -27,7 +27,10 @@
                 android:layout_height="wrap_content"
                 android:hint="Title..."
                 android:maxLength="25"
-                android:background="@android:color/transparent"
+                android:imeOptions="actionNext"
+                android:focusableInTouchMode="true"
+                android:singleLine="true"
+                android:maxLines="1"
                 android:layout_marginLeft="8dp"/>
         </LinearLayout>
 

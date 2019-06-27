@@ -22,26 +22,16 @@
 
             <RelativeLayout
                 android:id="@+id/relative_layout_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="4dp">
+                style="@style/sub_relative_layout_style">
                 <ImageView
                     android:id="@+id/iv"
                     style="@style/vector_image_style"
                     android:layout_alignParentLeft="true"
                     android:src="@drawable/ic_date_range_black_24dp"/>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                   style="@style/sub_text_view_style"
                     android:text="Date"
-                    android:layout_toRightOf="@+id/iv"
-                    android:layout_marginLeft="8dp"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"/>
+                    android:layout_toRightOf="@+id/iv" />
                 <TextView
                     android:id="@+id/tv_alarm_date"
                     android:layout_width="wrap_content"
@@ -55,26 +45,16 @@
 
             <RelativeLayout
                 android:id="@+id/relative_layout_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="8dp">
+                style="@style/sub_relative_layout_style">
                 <ImageView
                     android:id="@+id/iv1"
                     style="@style/vector_image_style"
                     android:layout_alignParentLeft="true"
                     android:src="@drawable/ic_timer_black_24dp"/>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/sub_text_view_style"
                     android:text="Time"
-                    android:layout_toRightOf="@+id/iv1"
-                    android:layout_marginLeft="8dp"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"/>
+                    android:layout_toRightOf="@+id/iv1" />
                 <TextView
                     android:id="@+id/tv_alarm_time"
                     android:layout_width="wrap_content"
@@ -84,6 +64,54 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:textSize="16dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_view_all"
+                style="@style/sub_relative_layout_style">
+
+                <ImageView
+                    android:id="@+id/iv2"
+                    style="@style/vector_image_style"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/ic_repeat_black_24dp"/>
+                <TextView
+                    android:id="@+id/tv_view_all"
+                    style="@style/sub_text_view_style"
+                    android:visibility="visible"
+                    android:layout_toRightOf="@+id/iv2"
+                    android:text="Repeat Reminders !" />
+
+
+                <ImageView
+                    android:id="@+id/iv3"
+                    style="@style/vector_image_style"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/ic_repeat_black_24dp"/>
+                <TextView
+                    android:id="@+id/tv_view_all_hide"
+                    style="@style/sub_text_view_style"
+                    android:visibility="gone"
+                    android:layout_toRightOf="@+id/iv3"
+                    android:text="Select Option" />
+
+
+                <ImageView
+                    android:id="@+id/iv_view_all_one"
+                    style="@style/visibilities_image_style"
+                    android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="visible"
+                    android:layout_centerVertical="true" />
+
+                <ImageView
+                    android:id="@+id/iv_view_all_two"
+                    style="@style/visibilities_image_style"
+                    android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+                    android:layout_alignParentRight="true"
+                    android:visibility="gone"
+                    android:layout_centerVertical="true" />
+
             </RelativeLayout>
         </LinearLayout>
 

@@ -22,13 +22,12 @@
                 app:srcCompat="@drawable/provider" />
 
             <Spinner
-                android:id="@+id/spinInsuranceList"
+                android:id="@+id/sp_insurance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/iv_main_provider"
                 android:dropDownVerticalOffset="6dp"
-                android:spinnerMode="dialog"
-                android:entries="@array/insurance_list"/>
+                android:spinnerMode="dialog"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -68,7 +67,8 @@
 
         <RelativeLayout
             android:id="@+id/layoutAccountNumber"
-            style="@style/dialog_relative_layout_style">
+            style="@style/dialog_relative_layout_style"
+            android:layout_marginBottom="16dp">
 
             <ImageView
                 android:id="@+id/iv_agent"
@@ -86,44 +86,7 @@
                 android:maxLines="1" />
         </RelativeLayout>
 
-        <RelativeLayout
-            style="@style/dialog_relative_layout_style"
-            android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/iv_agent_no"
-                style="@style/hint_image_style"
-                app:srcCompat="@drawable/ic_person_outline_black_24dp" />
-
-            <EditText
-                android:id="@+id/inputAgentNumber"
-                style="@style/edit_text_style"
-                android:layout_toRightOf="@id/iv_agent_no"
-                android:hint="@string/agent_number"
-                android:inputType="number"
-                android:maxLength="10"
-                android:maxLines="1" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            style="@style/dialog_relative_layout_style"
-            android:layout_marginBottom="12dp">
-
-            <ImageView
-                android:id="@+id/iv_alias"
-                style="@style/hint_image_style"
-                app:srcCompat="@drawable/ic_edit_black_24dp" />
-
-            <EditText
-                android:id="@+id/inputAliasName"
-                style="@style/edit_text_style"
-                android:layout_toRightOf="@id/iv_alias"
-                android:hint="@string/alias_name"
-                android:imeOptions="actionDone"
-                android:inputType="textPersonName"
-                android:maxLength="20"
-                android:maxLines="1" />
-        </RelativeLayout>
 
         <View style="@style/view_style" />
 
@@ -132,12 +95,14 @@
             android:layout_marginTop="18dp">
 
             <Button
+                android:id="@+id/btn_cancel"
                 style="@style/btn_style"
                 android:text="@string/cancel" />
 
             <View style="@style/horizontal_view_style" />
 
             <Button
+                android:id="@+id/btn_add"
                 style="@style/btn_style"
                 android:text="@string/button_add_cash" />
 

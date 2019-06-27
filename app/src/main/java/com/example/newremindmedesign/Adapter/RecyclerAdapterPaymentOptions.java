@@ -1,9 +1,6 @@
 package com.example.newremindmedesign.Adapter;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +37,7 @@ public class RecyclerAdapterPaymentOptions extends RecyclerView.Adapter<Recycler
     @Override
     public void onBindViewHolder(RecyclerAdapterPaymentOptions.MyViewHolder holder, final int position) {
 
-        holder.iv.setImageResource(imageModelArrayList.get(position).getImage_drawable());
+        holder.iv.setImageResource(imageModelArrayList.get(position).getImage());
         holder.time.setText(imageModelArrayList.get(position).getName());
 
     }

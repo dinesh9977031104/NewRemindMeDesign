@@ -55,6 +55,7 @@
             android:focusable="true"
             android:overScrollMode="never" />
 
+
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
             android:layout_width="wrap_content"
@@ -64,7 +65,11 @@
             app:itemIconTint="@color/colorWhite"
             app:itemTextColor="@color/colorWhite"
             app:menu="@menu/bottom_navigation_items" />
+
+
     </RelativeLayout>
+
+
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

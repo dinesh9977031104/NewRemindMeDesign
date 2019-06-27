@@ -23,6 +23,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:tint">@color/colorPrimary</item>
         <item name="android:layout_gravity">center</item>
+        <item name="android:layout_centerVertical">true</item>
     </style>
 
     <style name="full_screen_dialog">
@@ -127,6 +128,24 @@
         <item name="android:textSize">16dp</item>
     </style>
 
+
+    <style name="sub_text_view_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="sub_relative_layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+
     <style name="btn_linear_style">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -165,5 +184,30 @@
     </style>
 
 
+
+    <style name="linear_layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:weightSum">3</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="main_text_view_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="second_text_view_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:textColor">#FF949494</item>
+    </style>
 
 </resources>

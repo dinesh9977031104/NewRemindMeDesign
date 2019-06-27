@@ -39,9 +39,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@+id/iv"
-                    android:hint="Amount"
+                    android:hint="0.00"
                     android:maxLength="7"
-                    android:background="@android:color/transparent"
                   android:inputType="numberDecimal"
                     android:textColor="@color/colorBlack"/>
 

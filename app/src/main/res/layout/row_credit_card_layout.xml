@@ -127,12 +127,14 @@
         <LinearLayout style="@style/btn_linear_style">
 
             <Button
+                android:id="@+id/btn_cancel"
                 style="@style/btn_style"
                 android:text="@string/cancel" />
 
             <View style="@style/horizontal_view_style" />
 
             <Button
+                android:id="@+id/btn_add"
                 style="@style/btn_style"
                 android:text="@string/button_add_card" />
 

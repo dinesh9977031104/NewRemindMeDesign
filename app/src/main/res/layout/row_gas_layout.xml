@@ -35,7 +35,7 @@
                     app:srcCompat="@drawable/provider" />
 
                 <TextView
-                    android:id="@+id/inputGasProvider"
+                    android:id="@+id/tv_gas_provider"
                    style="@style/edit_text_style"
                     android:layout_toRightOf="@id/iv_provider"
                     android:hint="@string/select_provider" />
@@ -61,7 +61,8 @@
             </RelativeLayout>
 
             <RelativeLayout
-                style="@style/dialog_relative_layout_style">
+                style="@style/dialog_relative_layout_style"
+                android:layout_marginBottom="16dp">
 
                 <ImageView
                     android:id="@+id/iv_name"
@@ -80,25 +81,6 @@
                     android:maxLines="1" />
             </RelativeLayout>
 
-            <RelativeLayout
-               style="@style/dialog_relative_layout_style"
-                android:layout_marginBottom="12dp">
-
-                <ImageView
-                    android:id="@+id/iv_alias"
-                    style="@style/hint_image_style"
-                    app:srcCompat="@drawable/ic_edit_black_24dp" />
-
-                <EditText
-                    android:id="@+id/inputAliasName"
-                    style="@style/edit_text_style"
-                    android:layout_toRightOf="@id/iv_alias"
-                    android:hint="@string/alias_name"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPersonName"
-                    android:maxLength="20"
-                    android:maxLines="1"/>
-            </RelativeLayout>
             <View style="@style/view_style" />
 
             <LinearLayout
@@ -106,12 +88,14 @@
                 android:layout_marginTop="18dp">
 
                 <Button
+                    android:id="@+id/btn_cancel"
                     style="@style/btn_style"
                     android:text="@string/cancel" />
 
                 <View style="@style/horizontal_view_style" />
 
                 <Button
+                    android:id="@+id/btn_add"
                     style="@style/btn_style"
                     android:text="@string/button_add_cash" />
 

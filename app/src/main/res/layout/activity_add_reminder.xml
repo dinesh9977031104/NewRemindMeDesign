@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:focusableInTouchMode="true"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.ActivityAddReminder">
 
@@ -17,6 +17,18 @@
         android:minHeight="?attr/actionBarSize"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title="@string/title_add_reminder" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true">
+
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,67 +45,22 @@
 
                 <View style="@style/view_style"/>
 
-                <include layout="@layout/row_date_layout" />
-
-                <View style="@style/view_style"/>
-
                 <include layout="@layout/row_amount_layout" />
 
                 <include layout="@layout/row_payment_option_layout" />
 
                 <View style="@style/view_style"
-                    android:layout_marginTop="12dp"/>
+                    android:layout_marginTop="8dp"/>
 
-                <RelativeLayout
-                    android:id="@+id/relative_layout_view_all"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tv_view_all"
-                        style="@style/heading_textview_style"
-                        android:layout_marginTop="12dp"
-                        android:drawableLeft="@drawable/ic_repeat_black_24dp"
-                        android:drawablePadding="12dp"
-                        android:visibility="visible"
-                        android:layout_centerVertical="true"
-                        android:drawableTint="@color/colorPrimary"
-                        android:text="Repeat Reminders !" />
-
-                    <TextView
-                        android:id="@+id/tv_view_all_hide"
-                        style="@style/heading_textview_style"
-                        android:layout_marginTop="12dp"
-                        android:drawableLeft="@drawable/ic_repeat_black_24dp"
-                        android:drawablePadding="12dp"
-                        android:visibility="gone"
-                        android:layout_centerVertical="true"
-                        android:drawableTint="@color/colorPrimary"
-                        android:text="Select Option" />
-
-
-                    <ImageView
-                        android:id="@+id/iv_view_all_one"
-                        style="@style/visibilities_image_style"
-                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
-                        android:layout_alignParentRight="true"
-                        android:visibility="visible"
-                        android:layout_centerVertical="true" />
-
-                    <ImageView
-                        android:id="@+id/iv_view_all_two"
-                        style="@style/visibilities_image_style"
-                        android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
-                        android:layout_alignParentRight="true"
-                        android:visibility="gone"
-                        android:layout_centerVertical="true" />
-
-                </RelativeLayout>
-
+                <include layout="@layout/row_date_layout" />
 
                 <include layout="@layout/row_view_all_layout"/>
 
                 <View style="@style/view_style"/>
 
+                <!--<include layout="@layout/row_card_view" />-->
+
             </LinearLayout>
     </ScrollView>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

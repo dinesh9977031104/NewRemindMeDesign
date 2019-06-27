@@ -14,30 +14,6 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Reminder Type"
-                android:textSize="16dp"
-                android:drawableLeft="@drawable/reminder_type"
-                android:drawablePadding="12dp"
-                android:drawableTint="@color/colorPrimary"/>
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:spinnerMode="dialog"
-                android:entries="@array/reminder_type">
-            </Spinner>
-        </LinearLayout>
-
-
-        <LinearLayout
             android:id="@+id/linear_layout_notify"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
